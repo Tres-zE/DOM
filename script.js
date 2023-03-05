@@ -1,3 +1,10 @@
+/*Entonces, para poder solucionar esto y que quede un poco más seguro nuestro 
+código, vamos a utilizar algo que se llama immediately invoked function expression o 
+bien por sus siglas: IIFE, que es tal cual, son funciones que en cuanto se declaran, 
+se ejecutan.*/
+
+( () => { 
+
 const btn = document.querySelector("[data-form-btn]");
 /*se crea una funcion para agregar un evento al boton y que logre capturar datos*/
 const createTask =  (evento) =>{
@@ -8,8 +15,6 @@ const createTask =  (evento) =>{
     const task = document.createElement('li');
     task.classList.add('card');/*la clase card esta en css*/
     input.value = '';
-    /*para mostrar datos en pantalla*/
-    console.log(checkComplete());
     const taskContent = document.createElement('div');
     taskContent.appendChild(checkComplete());
     const titleTask = document.createElement('span');
@@ -22,18 +27,27 @@ const createTask =  (evento) =>{
     task.appendChild(taskContent);
     list.appendChild(task);
 
-    console.log(content); 
 }
 
-console.log(btn);
 
 /* Arrows funtions o funciones anonimas*/
 btn.addEventListener('click' ,createTask);
 
 const checkComplete = () => {
     const i = document.createElement('i');
-    i.classList.add('far');
-    i.classList.add('fa-check-square');
-    i.classList.add('icon');
+    i.classList.add('far', 'fa-check-square', 'icon' );
+    i.addEventListener('click' ,completeTask);
     return i;
 }
+
+const completeTask = (event) =>{
+    const element = event.target;
+    element.classList.toggle('fas');/*esta clase es de la etiqueta i*/
+    element.classList.toggle('completeIcon');/*esta clase se encuentra en css*/
+    element.classList.toggle('far');
+    /*toggle es para verificar si esta la clase:
+    si existe la quito y sino la pongo
+    (para poder marcar o desmarcar)*/
+}
+
+} ) ();
